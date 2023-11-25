@@ -3,19 +3,11 @@ import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import { useState } from 'react';
 
-import ServerRow from '../ServerRow/ServerRow';
+import ServerTable from '../Table/ServerTable';
+import { IServer } from '../../store/serversStore';
 
 import { sxServerList, sxTabs } from './styles';
 import { TabPanel } from './components/TabPanel';
-import ServerTable from '../Table/ServerTable';
-
-
-const mockServersArray = [
-    { name: 'Linux', host: '123.234.123.234', port: '5678', vmArray: [], },
-    { name: 'Astra', host: '234.456.234.456', port: '6789', vmArray: [], },
-    { name: 'Uebunta', host: '123.234.789.234', port: '1234', vmArray: [], },
-    { name: 'Bubunta', host: '234.567.123.234', port: '2345', vmArray: [], },
-];
 
 function a11yProps(index: number) {
   return {
@@ -25,10 +17,10 @@ function a11yProps(index: number) {
   };
 }
 
-export const ServerParkList = () => {
+export const ServerParkList = ({servers}: {servers: IServer[]}) => {
   const [value, setValue] = useState(0);
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+  const handleChange = (event: React.SyntheticEvent , newValue: number) => {
     setValue(newValue);
   };
  
@@ -48,7 +40,7 @@ export const ServerParkList = () => {
         <Tab label="Server park 2" {...a11yProps(1)} />
       </Tabs>
       <TabPanel value={value} index={0}>
-        <ServerTable />
+        <ServerTable rows={servers} />
       </TabPanel>
       <TabPanel value={value} index={1}>
         Item Two
